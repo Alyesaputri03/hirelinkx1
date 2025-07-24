@@ -1,13 +1,15 @@
-// Tambahan import tidak perlu (sudah lengkap)
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // ✅ Tambahkan ini
 
 import '../../main.dart';
 import '../../utils/app_routes.dart';
+
+final supabase = Supabase.instance.client; // ✅ Tambahkan ini
 
 class FormLokerScreen extends StatefulWidget {
   final Map<String, dynamic>? lokerData;
@@ -27,7 +29,7 @@ class _FormLokerScreenState extends State<FormLokerScreen> {
   final _deskripsiController = TextEditingController();
 
   String? _selectedKategoriId;
-  String? _tipe; // Tambahan tipe (onsite/remote)
+  String? _tipe;
   List<Map<String, dynamic>> _kategoriList = [];
 
   File? _imageFile;
@@ -49,7 +51,7 @@ class _FormLokerScreenState extends State<FormLokerScreen> {
       _wilayahController.text = loker['wilayah'] ?? '';
       _deskripsiController.text = loker['deskripsi'] ?? '';
       _selectedKategoriId = loker['kategori_id']?.toString();
-      _tipe = loker['tipe']; // Set tipe dari data
+      _tipe = loker['tipe'];
       _existingImageUrl = loker['gambar'];
     }
   }
